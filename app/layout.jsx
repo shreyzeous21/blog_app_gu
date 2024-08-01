@@ -1,7 +1,10 @@
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["100","200","300","400","500","600","700"],
+});
 
 export const metadata = {
   title: "Blog App | GU",
@@ -11,8 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      head>link
-      <body className={inter.className}>{children}</body>
+      <head>
+        <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+      </head>
+      <body className={outfit.className}>{children}</body>
     </html>
   );
 }
