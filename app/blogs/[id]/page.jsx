@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -12,6 +10,7 @@ import {
 } from "@/Assets/assets";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import axios from "axios";
 
 const socialLinks = [
   {
@@ -34,19 +33,25 @@ const socialLinks = [
   },
 ];
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [data, setData] = useState(null);
-  const fetchData = () => {
-    const blogItem = blog_data.find((item) => item.id === Number(params.id));
-    if (blogItem) {
-      setData(blogItem);
-    } else {
-      console.error("Blog post not found");
-    }
+  const fetchData = async () => {
+    // const blogItem = blog_data.find((item) => item.id === Number(params.id));
+    // if (blogItem) {
+    //   setData(blogItem);
+    // } else {
+    //   console.error("Blog post not found");
+    // }
+    const response = await axios.get("/api/blog", {
+      params: {
+        id: params.id,
+      },
+    });
+    setData(response.data);
   };
   useEffect(() => {
     fetchData();
-  }, [params.id]);
+  });
   return data ? (
     <>
       <div className="bg-gray-200 py-5 px-5 md:px-12 lg:px-28">
@@ -69,7 +74,7 @@ const page = ({ params }) => {
           </h1>
           <Image
             className="mx-auto mt-6 border border-white rounded-full"
-            src={data.author_img}
+            src={data.authorImg}
             width={60}
             height={60}
             alt="author"
@@ -87,60 +92,14 @@ const page = ({ params }) => {
           height={720}
           alt="image"
         />
-        <h1 className="my-8 text-[26px] font-semibold">Introduction:</h1>
-        <p>{data.description}</p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 1: self geberated
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 2: self geberated
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 3: self geberated
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">Conclusion:</h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          nesciunt, sit itaque, aliquid pariatur explicabo ex vero quibusdam
-          repellat rerum, voluptatem nobis expedita reprehenderit! Quibusdam
-          illum reiciendis corporis voluptates quos.
-        </p>
+
+        <div
+          className="
+        blog-content"
+        >
+          {data.description}
+        </div>
+
         <div className="my-24">
           <p className="text-black font-semibold my-4">
             Share this article on social media
@@ -167,4 +126,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;

@@ -1,12 +1,16 @@
 import logo from "./logo.svg";
 import blog_pic_1 from "./blog_pic_1.jpg";
 import add from "./add.svg";
-import email from "./email.svg"
+import email from "./email.svg";
+import list from "./list.svg";
+import upload from "./upload.svg";
 
 export const assets = {
   logo,
   add,
   email,
+  list,
+  upload,
 };
 
 export const blog_data = [

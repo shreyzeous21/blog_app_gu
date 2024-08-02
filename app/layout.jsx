@@ -1,9 +1,10 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["100","200","300","400","500","600","700"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 export const metadata = {
@@ -13,11 +14,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
-      </head>
-      <body className={outfit.className}>{children}</body>
-    </html>
+    // <ClerkProvider>
+      <html lang="en">
+        <head>
+          <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+        </head>
+        <body className={outfit.className}>{children}</body>
+      </html>
+    // </ClerkProvider>
   );
 }
